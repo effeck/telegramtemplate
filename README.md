@@ -1,108 +1,80 @@
-# Template de Bot – Telegram
+Шаблон Telegram-бота
+Легковесный и модульный шаблон для быстрого создания ботов для Telegram с соблюдением лучших практик. Этот проект служит основой для новых ботов: структура организована, команды готовы к использованию, а расширение функционала не требует лишних усилий.
 
-Um template enxuto e modular para você criar bots no Telegram com rapidez e boas práticas. Este projeto serve como base para iniciar novos bots, com estrutura organizada, comandos prontos e fácil expansão.
+https://img.shields.io/badge/Python-3.13%252B-blue.svg
+https://img.shields.io/badge/Telegram-Bot-26A5E4.svg
+https://img.shields.io/badge/License-MIT-green.svg
 
-[![Python](https://img.shields.io/badge/Python-3.13%2B-blue.svg)](https://www.python.org/)
-[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-26A5E4.svg)](https://core.telegram.org/bots)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+Демонстрация
+Бот в работе: @TemplateBot
 
----
+Рекомендуемый хостинг: fps.ms – бесплатный хостинг для Telegram-ботов
 
-## Demonstração
+Основные возможности
+Модульная структура (каждая команда в отдельном обработчике).
 
-- Veja o bot online: [@TemplateBot](https://t.me/template_github_diegooilv_bot)
-- Hospedagem sugerida: [fps.ms – Free Telegram Bot Hosting](https://fps.ms/free-telegram-bot-hosting/)
+Централизованная регистрация команд и callback-запросов.
 
----
+Сообщения с HTML-разметкой и inline-клавиатурами.
 
-## Principais recursos
+Настраиваемое логирование через переменную окружения (LOG_LEVEL).
 
-- Estrutura modular (cada comando em seu próprio handler).
-- Registro centralizado de comandos e callbacks.
-- Mensagens com formatação HTML e teclado inline.
-- Pronto para logs configuráveis via variável de ambiente (`LOG_LEVEL`).
-- Fácil de adaptar, testar e fazer deploy.
+Лёгкость в адаптации, тестировании и развёртывании.
 
----
-
-## Estrutura do projeto
-
-```
+Структура проекта
+text
 src/
-├─ run.py                      # Inicia o bot (Application, carregamento do .env e bootstrap)
+├─ run.py                      # Точка входа: запуск бота (Application, загрузка .env, инициализация)
 └─ handlers/
-   ├─ commands.py              # Registro de todos os handlers (comandos, callbacks, erros)
+   ├─ commands.py              # Регистрация всех обработчиков (команд, callback-ов, ошибок)
    ├─ start.py                 # /start
    ├─ menu.py                  # /menu
-   ├─ info.py                  # /info e /botinfo
-   ├─ callbacks.py             # CallbackQueryHandler (botões)
-   └─ error.py                 # Tratamento de erros
-```
+   ├─ info.py                  # /info и /botinfo
+   ├─ callbacks.py             # CallbackQueryHandler (обработка нажатий на кнопки)
+   └─ error.py                 # Обработка ошибок
+Совет: добавьте файлы __init__.py в папки для упрощения импортов.
 
-> Dica: acrescente `__init__.py` nas pastas para facilitar imports.
+Требования
+Python 3.13+
 
----
+Токен бота Telegram (получить у @BotFather)
 
-## Requisitos
+Настройка
+Создайте файл .env в корне проекта:
 
-- Python 3.13+  
-- Token de bot do Telegram (via [@BotFather](https://t.me/BotFather))
-
----
-
-## Configuração
-
-Crie um arquivo `.env` na raiz do projeto:
-
-```env
-TELEGRAM_BOT_TOKEN=coloque_seu_token_aqui
+env
+TELEGRAM_BOT_TOKEN=вставьте_свой_токен_здесь
 LOG_LEVEL=INFO
-```
+LOG_LEVEL может принимать значения: DEBUG, INFO, WARNING, ERROR, CRITICAL.
 
-- `LOG_LEVEL` pode ser: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`.
-
----
-
-## Instalação
-
-```bash
-# (opcional) crie e ative um ambiente virtual
+Установка
+bash
+# (опционально) создайте и активируйте виртуальное окружение
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 # Linux/Mac: source .venv/bin/activate
 
-# instale as dependências
+# установите зависимости
 pip install -r requirements.txt
-```
-
----
-
-## Execução local
-
-```bash
+Локальный запуск
+bash
 python src/run.py
-```
+По умолчанию шаблон использует Long Polling. Для работы в продакшене с Webhook настройте конфигурацию под вашу хостинговую платформу.
 
-Por padrão, o template utiliza Long Polling. Para produção com Webhook, ajuste a configuração conforme sua hospedagem.
+Доступные команды
+/start – Приветственное сообщение и список команд.
 
----
+/menu – Интерактивное меню с кнопками.
 
-## Comandos disponíveis
+/info – Информация о пользователе, чате и сообщении.
 
-- `/start` – Mensagem de boas-vindas e lista de comandos.
-- `/menu` – Exibe o menu interativo com botões.
-- `/info` – Mostra informações do usuário/chat/mensagem.
-- `/botinfo` – Explica que o projeto é um template e aponta para o GitHub.
+/botinfo – Описание проекта и ссылка на GitHub.
 
-Callbacks e tratamento de erros são registrados automaticamente no `handlers/commands.py`.
+Callback-запросы и обработка ошибок регистрируются автоматически в handlers/commands.py.
 
----
-
-## Exemplos
-
-### Handler do /start
-
-```python
+Примеры
+Обработчик команды /start
+python
 # src/handlers/start.py
 from typing import Any
 from telegram import Update
@@ -120,11 +92,8 @@ async def start(update: Update, context: Any) -> None:
         "Se encontrar algum erro, ele será tratado automaticamente 😉",
         parse_mode="HTML",
     )
-```
-
-### Registro centralizado dos handlers
-
-```python
+Централизованная регистрация обработчиков
+python
 # src/handlers/commands.py
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler
 from . import start, menu, info, callbacks, error
@@ -136,11 +105,8 @@ def register_handlers(app: Application) -> None:
     app.add_handler(CommandHandler("botinfo", info.bot_info))
     app.add_handler(CallbackQueryHandler(callbacks.button))
     app.add_error_handler(error.error)
-```
-
-### Inicialização do bot
-
-```python
+Запуск бота
+python
 # src/run.py
 from __future__ import annotations
 
@@ -177,23 +143,12 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-```
+Развёртывание
+fps.ms – бесплатный хостинг для Telegram-ботов
 
----
+Участие в разработке
+Приветствуются любые вклады!
+Открывайте issue, отправляйте pull request или предлагайте улучшения.
 
-## Deploy
-
-- [fps.ms – Free Telegram Bot Hosting](https://fps.ms/free-telegram-bot-hosting/)
-
----
-
-## Contribuindo
-
-Contribuições são bem-vindas!  
-Abra uma issue, envie um PR ou sugira melhorias.
-
----
-
-## Licença
-
-[MIT](LICENSE)
+Лицензия
+MIT
