@@ -1,15 +1,6 @@
 Шаблон Telegram-бота
 Легковесный и модульный шаблон для быстрого создания ботов для Telegram с соблюдением лучших практик. Этот проект служит основой для новых ботов: структура организована, команды готовы к использованию, а расширение функционала не требует лишних усилий.
 
-https://img.shields.io/badge/Python-3.13%252B-blue.svg
-https://img.shields.io/badge/Telegram-Bot-26A5E4.svg
-https://img.shields.io/badge/License-MIT-green.svg
-
-Демонстрация
-Бот в работе: @TemplateBot
-
-Рекомендуемый хостинг: fps.ms – бесплатный хостинг для Telegram-ботов
-
 Основные возможности
 Модульная структура (каждая команда в отдельном обработчике).
 
@@ -42,7 +33,7 @@ Python 3.13+
 Настройка
 Создайте файл .env в корне проекта:
 
-env
+text
 TELEGRAM_BOT_TOKEN=вставьте_свой_токен_здесь
 LOG_LEVEL=INFO
 LOG_LEVEL может принимать значения: DEBUG, INFO, WARNING, ERROR, CRITICAL.
@@ -79,7 +70,6 @@ python
 from typing import Any
 from telegram import Update
 
-# async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def start(update: Update, context: Any) -> None:
     await update.message.reply_text(
         "<b>Olá, eu sou um Bot Template para Telegram!</b> 🤖\n\n"
@@ -143,9 +133,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-Развёртывание
-fps.ms – бесплатный хостинг для Telegram-ботов
-
 Участие в разработке
 Приветствуются любые вклады!
 Открывайте issue, отправляйте pull request или предлагайте улучшения.
