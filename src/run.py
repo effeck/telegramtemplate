@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import sys
 import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import os
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -33,12 +36,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
